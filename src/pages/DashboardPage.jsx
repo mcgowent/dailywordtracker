@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useWriting } from "../context/WritingContext";
 import TodayCard from "../components/dashboard/TodayCard";
 import WeeklyProgressCard from "../components/dashboard/WeeklyProgressCard";
@@ -12,8 +13,18 @@ import { useWritingStats } from "../hooks/useWritingStats";
 export default function DashboardPage() {
   const { entries, addEntry, deleteEntry, globalGoals, projectGoals } =
     useWriting();
-
   const stats = useWritingStats(entries, globalGoals, projectGoals);
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 768);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const recentEntries = [...entries]
     .sort((a, b) => b.date.localeCompare(a.date))
@@ -21,7 +32,14 @@ export default function DashboardPage() {
 
   return (
     <div style={styles.page}>
-      <div style={styles.topGrid}>
+      <div
+        style={{
+          ...styles.topGrid,
+          gridTemplateColumns: isMobile
+            ? "1fr"
+            : "repeat(auto-fit, minmax(220px, 1fr))",
+        }}
+      >
         <TodayCard todayWords={stats.todayWords} />
         <WeeklyProgressCard weeklyWords={stats.weeklyWords} />
         <StreakTracker
@@ -31,14 +49,22 @@ export default function DashboardPage() {
       </div>
 
       <GoalProgressCards goals={stats.goalProgress} />
-
       <ProjectGoalProgress data={stats.projectGoalProgress} />
-
       <TrendChart data={stats.trendData} />
 
-      {/* <div style={styles.bottomGrid}>
+      <div
+        style={{
+          ...styles.bottomGrid,
+          gridTemplateColumns: isMobile ? "1fr" : "minmax(320px, 420px) 1fr",
+        }}
+      >
         <EntryForm onSubmit={addEntry} />
-      </div> */}
+        <EntryList
+          entries={recentEntries}
+          onEdit={() => {}}
+          onDelete={deleteEntry}
+        />
+      </div>
     </div>
   );
 }
@@ -50,12 +76,10 @@ const styles = {
   },
   topGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
     gap: "1rem",
   },
   bottomGrid: {
     display: "grid",
-    gridTemplateColumns: "minmax(320px, 420px) 1fr",
     gap: "1rem",
     alignItems: "start",
   },

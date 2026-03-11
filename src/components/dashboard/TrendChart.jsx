@@ -21,7 +21,7 @@ function formatWeekLabel(value) {
 export default function TrendChart({ data }) {
   return (
     <Card title="Weekly Average Writing Trend">
-      <div style={{ width: "100%", height: 320 }}>
+      <div style={{ width: "100%", height: 280, minWidth: 0 }}>
         <ResponsiveContainer>
           <BarChart data={data}>
             <CartesianGrid stroke="#374151" />

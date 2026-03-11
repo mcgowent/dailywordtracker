@@ -48,14 +48,17 @@ export default function EntryList({
 const styles = {
   wrapper: {
     overflowX: "auto",
+    WebkitOverflowScrolling: "touch",
   },
   table: {
     width: "100%",
+    minWidth: "700px",
     borderCollapse: "collapse",
   },
   head: {
     textAlign: "left",
     padding: "0.75rem",
     borderBottom: "1px solid #4b5563",
+    whiteSpace: "nowrap",
   },
 };

@@ -4,6 +4,7 @@ import EntryForm from "../components/entries/EntryForm";
 import EntryList from "../components/entries/EntryList";
 import ExcelUpload from "../components/entries/ExcelUpload";
 import Button from "../components/ui/Button";
+import { exportEntriesToExcel } from "../utils/exportEntries";
 
 export default function EntriesPage() {
   const {
@@ -93,6 +94,19 @@ export default function EntriesPage() {
           }}
         >
           Delete Selected ({selectedIds.length})
+        </Button>
+
+        <Button
+          variant="secondary"
+          onClick={() => {
+            const selectedEntries = entries.filter((entry) =>
+              selectedIds.includes(entry.id),
+            );
+            exportEntriesToExcel(selectedEntries);
+          }}
+          disabled={selectedIds.length === 0}
+        >
+          Export Selected
         </Button>
       </div>
 
