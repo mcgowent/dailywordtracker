@@ -1,0 +1,68 @@
+export const sampleEntries = [
+  {
+    id: "2022-12-01",
+    date: "2022-12-01",
+    words: 0,
+    project: "AKB2",
+    notes: "",
+    totalWords: 0,
+    weekday: "Th",
+  },
+  {
+    id: "2022-12-02",
+    date: "2022-12-02",
+    words: 1100,
+    project: "AKB2",
+    notes: "",
+    totalWords: 1100,
+    weekday: "Fr",
+  },
+  {
+    id: "2022-12-03",
+    date: "2022-12-03",
+    words: 950,
+    project: "AKB2",
+    notes: "",
+    totalWords: 2050,
+    weekday: "Sa",
+  },
+  {
+    id: "2022-12-04",
+    date: "2022-12-04",
+    words: 1300,
+    project: "AKB2",
+    notes: "",
+    totalWords: 3350,
+    weekday: "Su",
+  },
+
+  /* ----- MANY MORE ENTRIES FROM YOUR EXCEL ----- */
+
+  {
+    id: "2026-03-08",
+    date: "2026-03-08",
+    words: 950,
+    project: "Dragon Knight",
+    notes: "",
+    totalWords: 82500,
+    weekday: "Su",
+  },
+  {
+    id: "2026-03-09",
+    date: "2026-03-09",
+    words: 2400,
+    project: "System Reset",
+    notes: "",
+    totalWords: 84900,
+    weekday: "Mo",
+  },
+  {
+    id: "2026-03-10",
+    date: "2026-03-10",
+    words: 2100,
+    project: "Journey to Crystal Mountain",
+    notes: "",
+    totalWords: 87000,
+    weekday: "Tu",
+  },
+];
