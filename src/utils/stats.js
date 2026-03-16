@@ -41,7 +41,7 @@ export function getProjectTotals(entries) {
 }
 
 export function getWeeklyAverageData(entries) {
-  const buckets = new Map();
+  const weeklyBuckets = new Map();
 
   entries.forEach((entry) => {
     const date = new Date(`${entry.date}T00:00:00`);
@@ -49,35 +49,43 @@ export function getWeeklyAverageData(entries) {
 
     const day = startOfWeek.getDay();
     startOfWeek.setDate(startOfWeek.getDate() - day);
+    startOfWeek.setHours(0, 0, 0, 0);
 
     const weekKey = startOfWeek.toISOString().slice(0, 10);
 
-    if (!buckets.has(weekKey)) {
-      buckets.set(weekKey, {
+    if (!weeklyBuckets.has(weekKey)) {
+      weeklyBuckets.set(weekKey, {
         week: weekKey,
-        totalWords: 0,
-        entryCount: 0,
+        dayTotals: new Map(),
       });
     }
 
-    const bucket = buckets.get(weekKey);
-    bucket.totalWords += entry.words;
-    bucket.entryCount += 1;
+    const bucket = weeklyBuckets.get(weekKey);
+    const currentDayTotal = bucket.dayTotals.get(entry.date) || 0;
+    bucket.dayTotals.set(entry.date, currentDayTotal + (entry.words || 0));
   });
 
-  return [...buckets.values()]
+  return [...weeklyBuckets.values()]
     .sort((a, b) => a.week.localeCompare(b.week))
-    .map((bucket) => ({
-      week: bucket.week,
-      averageWords: Math.round(bucket.totalWords / bucket.entryCount),
-    }));
+    .map((bucket) => {
+      const totalWords = [...bucket.dayTotals.values()].reduce(
+        (sum, words) => sum + words,
+        0,
+      );
+
+      return {
+        week: bucket.week,
+        averageWords: Math.round(totalWords / 7),
+      };
+    });
 }
 
 export function generateHeatmapData(entries) {
   const map = new Map();
 
   entries.forEach((entry) => {
-    map.set(entry.date, entry.words);
+    const current = map.get(entry.date) || 0;
+    map.set(entry.date, current + (entry.words || 0));
   });
 
   const days = [];
