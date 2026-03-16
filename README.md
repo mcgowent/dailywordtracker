@@ -103,7 +103,7 @@ Deployment:
 
 # Project Structure
 
-src
+`src
 ├── components
 │ ├── dashboard
 │ ├── entries
@@ -130,7 +130,7 @@ src
 │ └── WritingContext.jsx
 │
 └── data
-└── sampleEntries.js
+└── sampleEntries.js`
 
 ---
 
