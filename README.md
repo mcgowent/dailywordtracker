@@ -209,7 +209,7 @@ This project helped reinforce several practical frontend development concepts:
 
 Timothy McGowen
 
-Author, developer, and creator of multiple fantasy and LitRPG series.
+Author, developer, and creator.
 
 GitHub: (https://github.com/mcgowent)
 
