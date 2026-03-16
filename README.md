@@ -138,7 +138,7 @@ src
 
 Clone the repository:
 
-git clone https://github.com/mcgowent/writer-daily-tracker.git
+git clone https://github.com/mcgowent/dailywordtracker.git
 
 Install dependencies:
 
